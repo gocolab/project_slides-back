@@ -1,0 +1,2 @@
+data: {"error":"Please set an API key for Google GenerativeAI in the environment variable GOOGLE_API_KEY or in the `apiKey` field of the ChatGoogleGenerativeAI constructor"}
+
