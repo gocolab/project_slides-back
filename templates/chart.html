@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] p-[36pt_40pt] flex flex-col bg-white font-sans text-[#111827]">
+  <div class="flex justify-between items-baseline">
+    <h2 class="text-[28pt] font-bold tracking-[-0.01em]">Quarterly Performance</h2>
+    <p class="text-[10pt] text-[#6b7280]">DATA / CHART.JS</p>
+  </div>
+
+  <p class="text-[12pt] text-[#4b5563] mt-[8pt]">
+    Bar, line, pie 차트를 하나의 슬라이드에서 비교하는 템플릿
+  </p>
+
+  <div class="flex-1 grid grid-cols-3 gap-[14pt] mt-[18pt]">
+    <div class="border border-[#e5e7eb] rounded-[10pt] p-[10pt] flex flex-col">
+      <p class="text-[10pt] text-[#374151] mb-[6pt]">Bar Chart</p>
+      <div class="flex-1 min-h-0 relative">
+        <canvas id="barChart" class="w-full h-full"></canvas>
+      </div>
+    </div>
+    <div class="border border-[#e5e7eb] rounded-[10pt] p-[10pt] flex flex-col">
+      <p class="text-[10pt] text-[#374151] mb-[6pt]">Line Chart</p>
+      <div class="flex-1 min-h-0 relative">
+        <canvas id="lineChart" class="w-full h-full"></canvas>
+      </div>
+    </div>
+    <div class="border border-[#e5e7eb] rounded-[10pt] p-[10pt] flex flex-col">
+      <p class="text-[10pt] text-[#374151] mb-[6pt]">Pie Chart</p>
+      <div class="flex-1 min-h-0 relative">
+        <canvas id="pieChart" class="w-full h-full"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-[9pt] text-[#9ca3af] mt-[10pt]">Source: Sample Dataset</p>
+
+  <script>
+    const labels = ['Q1', 'Q2', 'Q3', 'Q4'];
+    const values = [14, 22, 19, 27];
+    const colors = ['#2563eb', '#10b981', '#f59e0b', '#ef4444'];
+    const shared = { animation: false, responsive: true, maintainAspectRatio: false };
+
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4 }] },
+      options: {
+        ...shared,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, grid: { color: '#e5e7eb' } } }
+      }
+    });
+
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          data: values,
+          borderColor: '#2563eb',
+          backgroundColor: 'rgba(37,99,235,0.15)',
+          fill: true,
+          tension: 0.35
+        }]
+      },
+      options: {
+        ...shared,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, grid: { color: '#e5e7eb' } } }
+      }
+    });
+
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: { labels, datasets: [{ data: [34, 26, 21, 19], backgroundColor: colors }] },
+      options: {
+        ...shared,
+        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 9 } } } }
+      }
+    });
+  </script>
+</body>
+</html>
+

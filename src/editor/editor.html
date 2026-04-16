@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide Editor - slides-grab</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            border: 'hsl(240 3.7% 15.9%)',
+            input: 'hsl(240 3.7% 15.9%)',
+            ring: 'hsl(240 4.9% 83.9%)',
+            background: 'hsl(240 10% 3.9%)',
+            foreground: 'hsl(0 0% 98%)',
+            primary: {
+              DEFAULT: 'hsl(0 0% 98%)',
+              foreground: 'hsl(240 5.9% 10%)',
+            },
+            secondary: {
+              DEFAULT: 'hsl(240 3.7% 15.9%)',
+              foreground: 'hsl(0 0% 98%)',
+            },
+            muted: {
+              DEFAULT: 'hsl(240 3.7% 15.9%)',
+              foreground: 'hsl(240 5% 64.9%)',
+            },
+            accent: {
+              DEFAULT: 'hsl(240 3.7% 15.9%)',
+              foreground: 'hsl(0 0% 98%)',
+            },
+            destructive: {
+              DEFAULT: 'hsl(0 62.8% 30.6%)',
+              foreground: 'hsl(0 0% 98%)',
+            },
+          },
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer base {
+      * { @apply border-border; }
+      body { @apply bg-background text-foreground font-sans antialiased; }
+    }
+    
+    .slide-wrapper {
+      @apply relative w-[960px] h-[540px] origin-top z-[1] shadow-2xl;
+    }
+    
+    .slide-wrapper iframe {
+      @apply w-full h-full border-none bg-white block relative z-[1];
+    }
+    
+    .bbox-layer { @apply absolute inset-0 z-[9] pointer-events-none; }
+    .bbox-layer.inert .bbox-item { @apply pointer-events-none opacity-30; }
+    
+    .object-layer { @apply absolute inset-0 z-[10] pointer-events-none; }
+    .object-outline { @apply absolute hidden rounded-md pointer-events-none; }
+    .object-outline.hover { @apply border-2 border-dashed border-blue-400/70 bg-blue-400/5; }
+    .object-outline.selected { @apply border-2 border-blue-500 bg-blue-500/10 shadow-[0_0_0_3px_rgba(59,130,246,0.2)]; }
+    
+    .draw-layer { @apply absolute inset-0 z-[8] pointer-events-auto cursor-crosshair; }
+    .mode-select .draw-layer { @apply cursor-default; }
+    
+    .draw-box { @apply absolute border-2 border-dashed border-red-500 bg-red-500/10 hidden pointer-events-none; }
+    
+    .bbox-item {
+      @apply absolute border-[1.5px] border-red-500/80 bg-red-500/10 pointer-events-auto cursor-pointer transition-all duration-150;
+    }
+    .bbox-item:hover { @apply border-red-400 bg-red-500/20 scale-[1.01]; }
+    .bbox-item.review { @apply border-green-500/80 bg-green-500/10; }
+    .bbox-item.review:hover { @apply border-green-400 bg-green-500/20; }
+    .bbox-item.selected { @apply shadow-[0_0_0_3px_rgba(255,255,255,0.2)] z-[11]; }
+    
+    .bbox-index {
+      @apply absolute -top-3 left-0 min-w-[20px] h-[18px] px-1.5 rounded-full bg-red-600/90 text-white text-[10px] flex items-center justify-center font-bold;
+    }
+    .bbox-item.review .bbox-index { @apply bg-green-600/90; }
+    
+    .bbox-actions { @apply absolute -top-8 right-0 hidden items-center gap-1.5; }
+    .bbox-item.selected .bbox-actions { @apply flex; }
+    
+    .bbox-action-btn {
+      @apply h-6 px-2 rounded-full text-white text-[10px] font-bold flex items-center justify-center transition-colors;
+    }
+    .bbox-delete { @apply bg-red-600 hover:bg-red-700 w-6 p-0 text-xs; }
+    .bbox-check { @apply bg-green-600 hover:bg-green-700; }
+    .bbox-rerun { @apply bg-amber-600 hover:bg-amber-700; }
+    
+    .bbox-item.pending .bbox-check,
+    .bbox-item.pending .bbox-rerun { @apply hidden; }
+    .bbox-item.review .bbox-delete { @apply hidden; }
+    
+    ::-webkit-scrollbar { @apply w-1.5; }
+    ::-webkit-scrollbar-track { @apply bg-transparent; }
+    ::-webkit-scrollbar-thumb { @apply bg-muted rounded-full; }
+  </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+
+  <!-- Nav Bar -->
+  <header class="h-14 flex items-center px-4 shrink-0 bg-background border-b z-50 gap-4">
+    <div class="flex items-center gap-2">
+      <button id="btn-prev" class="h-9 w-9 flex items-center justify-center rounded-md bg-secondary hover:bg-accent text-foreground disabled:opacity-30 transition-colors" title="Previous slide (Left arrow)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <span id="slide-counter" class="text-xs font-mono font-bold tracking-tight text-muted-foreground min-w-[5rem] text-center">-- / --</span>
+      <button id="btn-next" class="h-9 w-9 flex items-center justify-center rounded-md bg-secondary hover:bg-accent text-foreground disabled:opacity-30 transition-colors" title="Next slide (Right arrow)">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+    
+    <div class="flex-1"></div>
+    
+    <div class="flex items-center gap-3">
+      <span id="slide-status-chip" class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary border text-muted-foreground transition-all duration-200">idle</span>
+      <div class="h-4 w-[1px] bg-border mx-1"></div>
+      <span class="text-xs font-bold tracking-[0.2em] uppercase opacity-50 select-none">slides-grab</span>
+    </div>
+  </header>
+
+  <main class="flex-1 flex overflow-hidden min-h-0">
+    <!-- Stage Area -->
+    <section class="flex-1 flex flex-col bg-[#020202] relative" id="slide-panel">
+      <div id="slide-stage" class="flex-1 flex items-center justify-center p-8 overflow-hidden relative">
+        <div id="slide-wrapper" class="slide-wrapper group">
+          <button id="btn-clear-bboxes" class="absolute top-4 right-4 z-[12] px-3 py-1.5 rounded bg-background/80 backdrop-blur-sm border border-border text-[11px] font-bold hover:bg-background transition-opacity opacity-0 group-hover:opacity-100 disabled:hidden" title="Clear all boxes on current slide">
+            Clear Boxes
+          </button>
+          
+          <iframe id="slide-iframe" sandbox="allow-same-origin allow-scripts" loading="eager"></iframe>
+          
+          <div id="bbox-layer" class="bbox-layer"></div>
+          <div id="object-layer" class="object-layer">
+            <div id="object-hover-box" class="object-outline hover"></div>
+            <div id="object-selected-box" class="object-outline selected"></div>
+          </div>
+          <div id="draw-layer" class="draw-layer">
+            <div id="draw-box" class="draw-box"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sidebar -->
+    <aside id="editor-sidebar" class="w-80 shrink-0 border-l bg-background flex flex-col min-h-0 overflow-hidden">
+      <!-- Sidebar Tabs -->
+      <div class="p-3">
+        <div class="p-1 bg-secondary rounded-lg flex gap-1">
+          <button id="tool-mode-draw" class="flex-1 h-9 flex items-center justify-center gap-2 rounded-md text-xs font-bold transition-all data-[selected=true]:bg-background data-[selected=true]:shadow-sm outline-none" data-selected="true">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5h14v14H5zM9 5v14M15 5v14M5 9h14M5 15h14"/></svg>
+            BBox
+          </button>
+          <button id="tool-mode-select" class="flex-1 h-9 flex items-center justify-center gap-2 rounded-md text-xs font-bold transition-all data-[selected=true]:bg-background data-[selected=true]:shadow-sm outline-none text-muted-foreground" data-selected="false">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 4 11 8-5 1.2L14.6 20l-2.5 1-2.6-6.8L6 15z"/></svg>
+            Select
+          </button>
+        </div>
+      </div>
+
+      <div id="sidebar-body" class="flex-1 overflow-y-auto min-h-0 p-4 pt-0">
+        <!-- BBox Toolbar -->
+        <div id="bbox-toolbar" class="space-y-6">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Active Selection</span>
+              <span id="bbox-count" class="text-[10px] font-mono tabular-nums text-muted-foreground">0 pending · 0 review</span>
+            </div>
+            <div id="context-chip-list" class="flex flex-wrap gap-2"></div>
+          </div>
+          
+          <div class="space-y-3">
+            <label class="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Edit Instruction</label>
+            <textarea id="prompt-input" class="w-full bg-secondary border rounded-lg p-3 text-xs leading-relaxed focus:ring-1 focus:ring-ring outline-none resize-none" placeholder="Describe how to edit the selected regions..." rows="4"></textarea>
+          </div>
+
+          <div class="space-y-3">
+            <label class="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Agent Model</label>
+            <div class="relative">
+              <select id="model-select" class="w-full h-10 px-3 bg-secondary border rounded-lg text-xs font-bold appearance-none outline-none focus:ring-1 focus:ring-ring transition-all hover:bg-secondary/80">
+                <option value="gpt-5.4">gpt-5.4</option>
+                <option value="gpt-5.3-codex">gpt-5.3-codex</option>
+                <option value="gpt-5.3-codex-spark">gpt-5.3-codex-spark</option>
+              </select>
+              <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <button id="btn-send" class="w-full h-11 rounded-lg bg-primary text-primary-foreground font-bold text-xs flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all shadow-lg" title="Run Codex">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3.4 11.2 19.6 4.4c.8-.3 1.7.5 1.4 1.4l-6.8 16.2c-.3.8-1.4.9-1.9.1L9.2 16l-6.1-3.1c-.8-.5-.7-1.6.3-1.7Zm5.1 3.6 3.2 1.6 4.9-11.7-11.7 4.9 3.6 1.8 6.2-3.7c.4-.2.8.1.6.6l-6.8 6.5Z"/></svg>
+            Apply Changes
+          </button>
+        </div>
+
+        <!-- Select Toolbar -->
+        <div id="select-toolbar" class="space-y-6 hidden">
+          <div class="p-3 rounded-lg border bg-secondary/30">
+            <div id="selected-object-mini" class="flex items-center gap-2" style="display:none">
+              <span id="mini-tag" class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 text-[10px] font-bold"></span>
+              <span id="mini-text" class="text-[11px] truncate opacity-80"></span>
+            </div>
+            <p id="select-empty-hint" class="text-[11px] text-muted-foreground italic">Click an object on the slide to edit its properties directly.</p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Content</label>
+              <div class="flex gap-2">
+                <textarea id="popover-text-input" class="flex-1 bg-secondary border rounded-lg p-3 text-[11px] leading-relaxed focus:ring-1 focus:ring-ring outline-none resize-none" rows="2" placeholder="Text content..."></textarea>
+                <button id="popover-apply-text" class="h-auto px-3 rounded-lg bg-secondary border text-[10px] font-bold hover:bg-accent transition-colors">Set</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="space-y-2 text-center">
+                <label class="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block text-left">Text Color</label>
+                <input id="popover-text-color-input" class="w-full h-10 bg-secondary border rounded-lg cursor-pointer p-1" type="color">
+              </div>
+              <div class="space-y-2 text-center">
+                <label class="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block text-left">Background</label>
+                <input id="popover-bg-color-input" class="w-full h-10 bg-secondary border rounded-lg cursor-pointer p-1" type="color">
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Text Size</label>
+              <div class="flex items-center gap-3">
+                <div class="relative flex-1">
+                  <input id="popover-size-input" class="w-full h-10 px-3 pr-8 bg-secondary border rounded-lg text-xs font-mono tabular-nums outline-none" type="number" min="8" max="180" step="1">
+                  <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-muted-foreground pointer-events-none">PX</span>
+                </div>
+                <button id="popover-apply-size" class="h-10 px-4 rounded-lg bg-secondary border text-[10px] font-bold hover:bg-accent transition-colors">Apply</button>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Formatting</label>
+              <div class="flex gap-1.5 flex-wrap">
+                <button type="button" id="toggle-bold" class="h-9 w-9 flex items-center justify-center rounded-md border bg-secondary hover:bg-accent transition-all data-[active=true]:bg-blue-500/20 data-[active=true]:border-blue-500/50 data-[active=true]:text-blue-400" title="Bold (⌘B)">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 12a4 4 0 0 0 0-8H6v8"/><path d="M15 20a4 4 0 0 0 0-8H6v8"/></svg>
+                </button>
+                <button type="button" id="toggle-italic" class="h-9 w-9 flex items-center justify-center rounded-md border bg-secondary hover:bg-accent transition-all data-[active=true]:bg-blue-500/20 data-[active=true]:border-blue-500/50 data-[active=true]:text-blue-400" title="Italic (⌘I)">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 4h-9M14 20H5M15 4 9 20"/></svg>
+                </button>
+                <button type="button" id="toggle-underline" class="h-9 w-9 flex items-center justify-center rounded-md border bg-secondary hover:bg-accent transition-all data-[active=true]:bg-blue-500/20 data-[active=true]:border-blue-500/50 data-[active=true]:text-blue-400" title="Underline (⌘U)">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><path d="M4 20h16"/></svg>
+                </button>
+                <button type="button" id="toggle-strike" class="h-9 w-9 flex items-center justify-center rounded-md border bg-secondary hover:bg-accent transition-all data-[active=true]:bg-blue-500/20 data-[active=true]:border-blue-500/50 data-[active=true]:text-blue-400" title="Strikethrough">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><path d="M4 12h16"/></svg>
+                </button>
+                <div class="w-[1px] h-6 bg-border mx-1 self-center"></div>
+                <button type="button" id="align-left" class="h-9 w-9 flex items-center justify-center rounded-md border bg-secondary hover:bg-accent transition-all data-[active=true]:bg-blue-500/20 data-[active=true]:border-blue-500/50 data-[active=true]:text-blue-400" title="Align left">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 6H3M15 12H3M17 18H3"/></svg>
+                </button>
+                <button type="button" id="align-center" class="h-9 w-9 flex items-center justify-center rounded-md border bg-secondary hover:bg-accent transition-all data-[active=true]:bg-blue-500/20 data-[active=true]:border-blue-500/50 data-[active=true]:text-blue-400" title="Align center">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 6H3M17 12H7M19 18H5"/></svg>
+                </button>
+                <button type="button" id="align-right" class="h-9 w-9 flex items-center justify-center rounded-md border bg-secondary hover:bg-accent transition-all data-[active=true]:bg-blue-500/20 data-[active=true]:border-blue-500/50 data-[active=true]:text-blue-400" title="Align right">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 6H3M21 12H9M21 18H7"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Hint -->
+      <footer class="p-4 border-t bg-secondary/20">
+        <p id="editor-hint" class="text-[11px] text-muted-foreground leading-relaxed italic">
+          Drag on the slide to add regions. Press Enter to run the agent.
+        </p>
+      </footer>
+    </aside>
+  </main>
+
+  <!-- Status Bar -->
+  <footer class="h-8 shrink-0 flex items-center px-4 bg-background border-t gap-6 z-50 overflow-hidden">
+    <div class="flex items-center gap-2 min-w-max">
+      <div id="status-dot" class="w-2 h-2 rounded-full bg-muted transition-colors duration-500"></div>
+      <span id="status-connection" class="text-[10px] font-bold uppercase tracking-wider text-muted-foreground whitespace-nowrap">Connecting...</span>
+    </div>
+    <div id="status-message" class="text-[10px] font-mono tracking-tight text-muted-foreground truncate flex-1 text-right italic"></div>
+  </footer>
+
+  <script type="module" src="/js/editor-init.js"></script>
+</body>
+</html>

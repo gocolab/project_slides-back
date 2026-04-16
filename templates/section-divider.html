@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] p-[48pt] flex flex-col justify-between bg-[#1a1a1a] font-sans">
+  <!-- 상단 섹션 정보 -->
+  <div class="flex justify-between items-start">
+    <div>
+      <p class="inline-block px-[10pt] py-[4pt] bg-white text-[#1a1a1a] rounded-[4pt] text-[8pt] font-semibold">SECTION 1</p>
+    </div>
+    <p class="text-[9pt] text-[#666]">©2025 YOUR BRAND</p>
+  </div>
+
+  <!-- 메인 타이틀 -->
+  <div>
+    <h1 class="text-[64pt] font-medium text-white tracking-[-0.02em] leading-[1.1]">
+      Introduction
+    </h1>
+    <p class="text-[16pt] text-[#888] mt-[16pt] max-w-[400pt] line-height-[1.6]">
+      Brief description of what this section covers and why it matters.
+    </p>
+  </div>
+
+  <!-- 페이지 번호 -->
+  <div class="flex justify-end">
+    <p class="text-[10pt] text-[#666]">01</p>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] p-[36pt_40pt] flex flex-col bg-white font-sans text-[#111827]">
+  <div class="flex justify-between items-baseline">
+    <h2 class="text-[28pt] font-bold tracking-[-0.01em]">Process Diagram</h2>
+    <p class="text-[10pt] text-[#6b7280]">DIAGRAM / MERMAID</p>
+  </div>
+
+  <p class="text-[12pt] text-[#4b5563] mt-[8pt]">
+    Flowchart와 sequence diagram을 한 장에 배치하는 템플릿
+  </p>
+
+  <div class="flex-1 min-h-0 grid grid-cols-2 gap-[14pt] mt-[18pt]">
+    <div class="border border-[#e5e7eb] rounded-[10pt] p-[10pt] flex flex-col min-h-0">
+      <p class="text-[10pt] text-[#374151] mb-[6pt]">Flowchart</p>
+      <div class="flex-1 min-h-0 overflow-hidden">
+        <pre class="mermaid w-full h-full bg-white font-sans">
+flowchart TD
+  A[요청 수신] --> B[아웃라인 생성]
+  B --> C[디자인 슬라이드 생성]
+  C --> D[PPTX 변환]
+  D --> E[검토]
+        </pre>
+      </div>
+    </div>
+    <div class="border border-[#e5e7eb] rounded-[10pt] p-[10pt] flex flex-col min-h-0">
+      <p class="text-[10pt] text-[#374151] mb-[6pt]">Sequence Diagram</p>
+      <div class="flex-1 min-h-0 overflow-hidden">
+        <pre class="mermaid w-full h-full bg-white font-sans">
+sequenceDiagram
+  participant User
+  participant Agent
+  participant Converter
+  User->>Agent: 슬라이드 생성 요청
+  Agent->>Converter: HTML 전달
+  Converter-->>Agent: PPTX 반환
+  Agent-->>User: 결과 전달
+        </pre>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-[9pt] text-[#9ca3af] mt-[10pt]">Rendered with Mermaid</p>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: 'loose',
+      theme: 'default',
+      fontFamily: 'Pretendard'
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] p-[40pt_48pt] flex flex-col bg-white font-sans">
+  <!-- 헤더 -->
+  <div class="mb-[32pt]">
+    <h2 class="text-[28pt] font-semibold text-[#1a1a1a]">Our Journey</h2>
+  </div>
+
+  <!-- 타임라인 -->
+  <div class="flex-1 flex items-center">
+    <div class="flex w-full justify-between relative">
+      <!-- 연결선 -->
+      <div class="absolute top-[12pt] left-[40pt] right-[40pt] h-[2pt] bg-[#e5e5e0]"></div>
+
+      <!-- 타임라인 아이템들 -->
+      <div class="text-center z-10">
+        <div class="w-[24pt] h-[24pt] bg-[#1a1a1a] rounded-full mx-auto mb-[16pt]"></div>
+        <p class="text-[18pt] font-semibold text-[#1a1a1a]">2020</p>
+        <p class="text-[11pt] text-[#888] mt-[8pt] max-w-[100pt]">Company Founded</p>
+      </div>
+      <div class="text-center z-10">
+        <div class="w-[24pt] h-[24pt] bg-[#1a1a1a] rounded-full mx-auto mb-[16pt]"></div>
+        <p class="text-[18pt] font-semibold text-[#1a1a1a]">2021</p>
+        <p class="text-[11pt] text-[#888] mt-[8pt] max-w-[100pt]">First Product Launch</p>
+      </div>
+      <div class="text-center z-10">
+        <div class="w-[24pt] h-[24pt] bg-[#1a1a1a] rounded-full mx-auto mb-[16pt]"></div>
+        <p class="text-[18pt] font-semibold text-[#1a1a1a]">2023</p>
+        <p class="text-[11pt] text-[#888] mt-[8pt] max-w-[100pt]">Series A Funding</p>
+      </div>
+      <div class="text-center z-10">
+        <div class="w-[24pt] h-[24pt] bg-[#1a1a1a] rounded-full mx-auto mb-[16pt]"></div>
+        <p class="text-[18pt] font-semibold text-[#1a1a1a]">2025</p>
+        <p class="text-[11pt] text-[#888] mt-[8pt] max-w-[100pt]">Global Expansion</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <div class="flex justify-end pt-[16pt]">
+    <p class="text-[10pt] text-[#666]">06</p>
+  </div>
+</body>
+</html>

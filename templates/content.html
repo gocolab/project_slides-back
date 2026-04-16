@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] p-[40pt_48pt] flex flex-col bg-white font-sans">
+  <!-- 헤더 -->
+  <div class="flex justify-between items-center mb-[32pt]">
+    <div class="flex items-center gap-[12pt]">
+      <p class="inline-block px-[10pt] py-[4pt] bg-[#1a1a1a] text-white rounded-[4pt] text-[8pt] font-semibold">SECTION 1</p>
+      <h2 class="text-[24pt] font-semibold text-[#1a1a1a]">Main Topic</h2>
+    </div>
+    <p class="text-[10pt] text-[#999]">02</p>
+  </div>
+
+  <!-- 콘텐츠 영역 -->
+  <div class="flex-1 grid grid-cols-2 gap-[32pt]">
+    <div>
+      <h3 class="text-[18pt] font-semibold text-[#1a1a1a] mb-[16pt]">Key Point One</h3>
+      <p class="text-[13pt] text-[#666] leading-[1.7]">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
+      </p>
+    </div>
+    <div>
+      <h3 class="text-[18pt] font-semibold text-[#1a1a1a] mb-[16pt]">Key Point Two</h3>
+      <p class="text-[13pt] text-[#666] leading-[1.7]">
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+      </p>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <div class="flex justify-between items-center pt-[16pt] border-t border-[#eee]">
+    <p class="text-[9pt] text-[#999]">www.yourwebsite.com</p>
+    <p class="text-[9pt] text-[#999]">©2025 YOUR BRAND</p>
+  </div>
+</body>
+</html>
+

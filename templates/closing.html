@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] p-[48pt] flex flex-col justify-between bg-[#1a1a1a] font-sans">
+  <!-- 로고 -->
+  <div class="flex items-center gap-[8pt]">
+    <div class="w-[20pt] h-[20pt] bg-white rounded-[4pt] flex items-center justify-center">
+      <p class="text-[#1a1a1a] text-[12pt]">*</p>
+    </div>
+    <p class="text-[12pt] font-semibold text-white">LogoName</p>
+  </div>
+
+  <!-- 메인 메시지 -->
+  <div>
+    <h1 class="text-[56pt] font-medium text-white tracking-[-0.02em] leading-[1.1]">
+      Thank You
+    </h1>
+    <p class="text-[16pt] text-[#888] mt-[16pt]">
+      Questions? Let's discuss.
+    </p>
+  </div>
+
+  <!-- 연락처 정보 -->
+  <div class="flex gap-[64pt]">
+    <div>
+      <p class="text-[9pt] text-[#666] mb-[4pt]">Email</p>
+      <p class="text-[12pt] font-medium text-white">hello@company.com</p>
+    </div>
+    <div>
+      <p class="text-[9pt] text-[#666] mb-[4pt]">Phone</p>
+      <p class="text-[12pt] font-medium text-white">+82 10-1234-5678</p>
+    </div>
+    <div>
+      <p class="text-[9pt] text-[#666] mb-[4pt]">Website</p>
+      <p class="text-[12pt] font-medium text-white">www.company.com</p>
+    </div>
+  </div>
+</body>
+</html>
+

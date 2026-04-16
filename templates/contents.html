@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] p-[48pt] grid grid-cols-[1fr_1.8fr] gap-[48pt] bg-[#b8c4b8] font-sans">
+  <!-- 왼쪽: 타이틀 -->
+  <div class="flex flex-col justify-end">
+    <p class="text-[9pt] text-[#3d3d3d] mb-[16pt]">©2025 YOUR BRAND. ALL RIGHTS RESERVED.</p>
+    <h1 class="text-[56pt] font-medium text-[#1a1a1a] tracking-[-0.02em] leading-[1.1]">
+      Our<br>Contents
+    </h1>
+    <div class="w-[32pt] h-[32pt] border border-[#1a1a1a] rounded-full flex items-center justify-center mt-[24pt]">
+      <p class="text-[14pt] text-[#1a1a1a]">↗</p>
+    </div>
+  </div>
+
+  <!-- 오른쪽: 목차 리스트 -->
+  <div class="flex flex-col justify-center gap-[16pt]">
+    <div class="flex items-center gap-[16pt] py-[12pt] border-bottom border-black/10">
+      <p class="inline-block px-[10pt] py-[4pt] bg-[#1a1a1a] text-white rounded-[4pt] text-[8pt] font-semibold">SECTION 1</p>
+      <p class="flex-1 text-[14pt] font-medium text-[#1a1a1a]">SECTION TITLE</p>
+      <p class="text-[14pt] text-[#666]">(1)</p>
+    </div>
+    <div class="flex items-center gap-[16pt] py-[12pt] border-bottom border-black/10">
+      <p class="inline-block px-[10pt] py-[4pt] bg-[#1a1a1a] text-white rounded-[4pt] text-[8pt] font-semibold">SECTION 2</p>
+      <p class="flex-1 text-[14pt] font-medium text-[#1a1a1a]">SECTION TITLE</p>
+      <p class="text-[14pt] text-[#666]">(2)</p>
+    </div>
+    <div class="flex items-center gap-[16pt] py-[12pt] border-bottom border-black/10">
+      <p class="inline-block px-[10pt] py-[4pt] bg-[#1a1a1a] text-white rounded-[4pt] text-[8pt] font-semibold">SECTION 3</p>
+      <p class="flex-1 text-[14pt] font-medium text-[#1a1a1a]">SECTION TITLE</p>
+      <p class="text-[14pt] text-[#666]">(3)</p>
+    </div>
+    <div class="flex items-center gap-[16pt] py-[12pt] border-bottom border-black/10">
+      <p class="inline-block px-[10pt] py-[4pt] bg-[#1a1a1a] text-white rounded-[4pt] text-[8pt] font-semibold">SECTION 4</p>
+      <p class="flex-1 text-[14pt] font-medium text-[#1a1a1a]">SECTION TITLE</p>
+      <p class="text-[14pt] text-[#666]">(4)</p>
+    </div>
+    <div class="flex items-center gap-[16pt] py-[12pt]">
+      <p class="inline-block px-[10pt] py-[4pt] bg-[#1a1a1a] text-white rounded-[4pt] text-[8pt] font-semibold">SECTION 5</p>
+      <p class="flex-1 text-[14pt] font-medium text-[#1a1a1a]">SECTION TITLE</p>
+      <p class="text-[14pt] text-[#666]">(5)</p>
+    </div>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] p-[32pt_48pt] flex flex-col bg-[#f5f5f0] font-sans">
+  <!-- 헤더 -->
+  <div class="flex justify-between items-center">
+    <div class="flex items-center gap-[16pt]">
+      <div class="flex items-center gap-[8pt]">
+        <div class="w-[18pt] h-[18pt] bg-[#1a1a1a] rounded-[3pt] flex items-center justify-center">
+          <p class="text-white text-[10pt]">*</p>
+        </div>
+        <p class="text-[11pt] font-semibold text-[#1a1a1a]">LogoName</p>
+      </div>
+      <p class="inline-block px-[10pt] py-[4pt] border border-[#1a1a1a] rounded-[12pt] text-[9pt] font-medium">PRESENTATION</p>
+    </div>
+    <div class="flex items-center gap-[8pt]">
+      <p class="inline-block px-[10pt] py-[4pt] border border-[#1a1a1a] rounded-[12pt] text-[9pt] font-medium">OUR PROJECT</p>
+      <div class="w-[28pt] h-[28pt] border border-[#1a1a1a] rounded-full flex items-center justify-center">
+        <p class="text-[12pt] text-[#1a1a1a]">↘</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 메인 타이틀 -->
+  <div class="flex-1 flex flex-col justify-center">
+    <h1 class="text-[72pt] font-medium text-[#1a1a1a] tracking-[-0.02em] leading-[1.1]">
+      Business Deck
+    </h1>
+    <p class="text-[14pt] text-[#666] mt-[24pt]">
+      <span class="text-[#999]">Presented by</span> <span class="font-medium text-[#1a1a1a]">Luna Martinez</span>
+    </p>
+  </div>
+
+  <!-- 푸터 정보 -->
+  <div class="flex gap-[64pt]">
+    <div>
+      <p class="text-[9pt] text-[#999] mb-[4pt]">Contact</p>
+      <p class="text-[11pt] font-medium text-[#1a1a1a]">334556774</p>
+    </div>
+    <div>
+      <p class="text-[9pt] text-[#999] mb-[4pt]">Date</p>
+      <p class="text-[11pt] font-medium text-[#1a1a1a]">March 2025</p>
+    </div>
+    <div>
+      <p class="text-[9pt] text-[#999] mb-[4pt]">Website</p>
+      <p class="text-[11pt] font-medium text-[#1a1a1a]">www.yourwebsite.com</p>
+    </div>
+  </div>
+</body>
+</html>
+
