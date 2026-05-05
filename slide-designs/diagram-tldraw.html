@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['Pretendard', 'ui-sans-serif', 'system-ui'] } } }
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] relative bg-white font-sans text-[#111827] overflow-hidden">
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PAGE LAYOUT TEMPLATE - diagram-tldraw
+     ║  
+     ║  구조 설명:
+     ║  1. 모든 요소는 position: absolute 를 사용합니다.
+     ║  2. z-index 계층: 배경(0) -> 장식(10) -> 이미지(20) -> 텍스트(30)
+     ║  3. 좌표 단위: pt (720x405 캔버스 기준)
+     ╚══════════════════════════════════════════════════════╝ -->
+
+  <!-- 헤더 -->
+  <h2 class="absolute top-[34pt] left-[40pt] text-[28pt] font-bold tracking-[-0.01em] z-[30]">System Diagram</h2>
+  <p class="absolute top-[53.9pt] left-[588.7pt] text-[10pt] text-[#6b7280] z-[30]">DIAGRAM / TLDRAW</p>
+
+  <p class="absolute top-[88pt] left-[40pt] w-[640pt] text-[12pt] text-[#4b5563] z-[30]">
+    Render a current-format local .tldr file with slides-grab tldraw, then reference the generated SVG asset below.
+  </p>
+
+  <!-- 이미지 영역 -->
+  <div class="absolute top-[118pt] left-[40pt] w-[640pt] h-[233.5pt] border border-[#e5e7eb] rounded-[14pt] bg-[#f8fafc] flex items-center justify-center overflow-hidden z-[20]">
+    <img src="./assets/diagram.svg" alt="System architecture diagram" class="block w-[614.5pt] h-[208pt] object-contain z-[30]" />
+  </div>
+
+  <p class="absolute top-[363.5pt] left-[40pt] w-[640pt] text-[9pt] text-[#9ca3af] z-[30]">
+    Example asset path: ./assets/diagram.svg
+  </p>
+
+</body>
+</html>
+

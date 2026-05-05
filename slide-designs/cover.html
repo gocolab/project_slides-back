@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] relative bg-[#f5f5f0] font-sans overflow-hidden">
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PAGE LAYOUT TEMPLATE - cover
+     ║  이 파일은 DOM 구조와 Tailwind 클래스 패턴 참조용입니다.
+     ║  
+     ║  구조 설명:
+     ║  1. 모든 요소는 position: absolute 를 사용합니다.
+     ║  2. z-index 계층: 배경(0) -> 장식(10) -> 이미지(20) -> 텍스트(30)
+     ║  3. 좌표 단위: pt (720x405 캔버스 기준)
+     ╚══════════════════════════════════════════════════════╝ -->
+  
+  <!-- 헤더 영역 -->
+  <div class="absolute top-[37pt] left-[48pt] w-[18pt] h-[18pt] bg-[#1a1a1a] rounded-[3pt] flex items-center justify-center z-[30]">
+    <p class="text-white text-[10pt] font-sans">*</p>
+  </div>
+  <p class="absolute top-[37.7pt] left-[74pt] text-[11pt] font-semibold text-[#1a1a1a] z-[30]">LogoName</p>
+  <p class="absolute top-[34.5pt] left-[145pt] px-[10pt] py-[4pt] border border-[#1a1a1a] rounded-[12pt] text-[9pt] font-medium z-[30]">PRESENTATION</p>
+  
+  <p class="absolute top-[34.5pt] left-[554pt] px-[10pt] py-[4pt] border border-[#1a1a1a] rounded-[12pt] text-[9pt] font-medium z-[30]">OUR PROJECT</p>
+  <div class="absolute top-[32pt] left-[644pt] w-[28pt] h-[28pt] border border-[#1a1a1a] rounded-full flex items-center justify-center z-[30]">
+    <p class="text-[12pt] text-[#1a1a1a]">↘</p>
+  </div>
+
+  <!-- 메인 타이틀 -->
+  <h1 class="absolute top-[137.4pt] left-[48pt] w-[624pt] text-[72pt] font-medium text-[#1a1a1a] tracking-[-0.02em] leading-[1.1] z-[30]">
+    Business Deck
+  </h1>
+  <p class="absolute top-[240.6pt] left-[48pt] w-[624pt] text-[14pt] text-[#666] z-[30]">
+    <span class="text-[#999]">Presented by</span> <span class="font-medium text-[#1a1a1a]">Luna Martinez</span>
+  </p>
+
+  <!-- 푸터 정보 -->
+  <!-- Contact -->
+  <p class="absolute top-[339pt] left-[48pt] text-[9pt] text-[#999] z-[30]">Contact</p>
+  <p class="absolute top-[356.5pt] left-[48pt] text-[11pt] font-medium text-[#1a1a1a] z-[30]">334556774</p>
+  
+  <!-- Date -->
+  <p class="absolute top-[339pt] left-[171.8pt] text-[9pt] text-[#999] z-[30]">Date</p>
+  <p class="absolute top-[356.5pt] left-[171.8pt] text-[11pt] font-medium text-[#1a1a1a] z-[30]">March 2025</p>
+  
+  <!-- Website -->
+  <p class="absolute top-[339pt] left-[296.5pt] text-[9pt] text-[#999] z-[30]">Website</p>
+  <p class="absolute top-[356.5pt] left-[296.5pt] text-[11pt] font-medium text-[#1a1a1a] z-[30]">www.yourwebsite.com</p>
+
+</body>
+</html>
+

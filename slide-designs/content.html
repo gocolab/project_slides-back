@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] relative bg-white font-sans overflow-hidden">
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PAGE LAYOUT TEMPLATE - content
+     ║  
+     ║  구조 설명:
+     ║  1. 모든 요소는 position: absolute 를 사용합니다.
+     ║  2. z-index 계층: 배경(0) -> 장식(10) -> 이미지(20) -> 텍스트(30)
+     ║  3. 좌표 단위: pt (720x405 캔버스 기준)
+     ╚══════════════════════════════════════════════════════╝ -->
+
+  <!-- 헤더 영역 -->
+  <i class="fa-solid fa-lightbulb absolute top-[50pt] left-[48pt] text-[20pt] z-[30]" style="color: #1a1a1a;"></i>
+  <p class="absolute top-[50pt] left-[75pt] px-[10pt] py-[4pt] bg-[#1a1a1a] text-white rounded-[4pt] text-[8pt] font-semibold z-[30]">SECTION 1</p>
+  <h1 class="absolute top-[36pt] left-[146.7pt] text-[32pt] font-bold text-[#1a1a1a] z-[30]">Main Topic</h1>
+  <p class="absolute top-[52.5pt] left-[660.2pt] text-[10pt] text-[#999] z-[30]">02</p>
+
+  <!-- 콘텐츠 영역 (Key Point 1) -->
+  <h2 class="absolute top-[108pt] left-[48pt] text-[20pt] font-semibold text-[#1a1a1a] z-[30]">Key Point One</h2>
+  <p class="absolute top-[154pt] left-[48pt] w-[296pt] text-[14pt] text-[#666] leading-[1.7] z-[30]">
+    핵심 내용을 2~3문장 이내로 작성하세요. (최대 80자)
+  </p>
+
+  <!-- 콘텐츠 영역 (Key Point 2) -->
+  <h2 class="absolute top-[108pt] left-[376pt] text-[20pt] font-semibold text-[#1a1a1a] z-[30]">Key Point Two</h2>
+  <p class="absolute top-[154pt] left-[376pt] w-[296pt] text-[14pt] text-[#666] leading-[1.7] z-[30]">
+    핵심 내용을 2~3문장 이내로 작성하세요. (최대 80자)
+  </p>
+
+  <!-- 푸터 영역 -->
+  <div class="absolute top-[338.7pt] left-[48pt] w-[624pt] border-t border-[#eee] z-[10]"></div>
+  <p class="absolute top-[355.5pt] left-[48pt] text-[9pt] text-[#999] z-[30]">www.yourwebsite.com</p>
+  <p class="absolute top-[355.5pt] left-[585.4pt] text-[9pt] text-[#999] z-[30]">©2025 YOUR BRAND</p>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['Pretendard', 'ui-sans-serif', 'system-ui'] } } }
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] relative bg-[#1a1a1a] font-sans overflow-hidden">
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PAGE LAYOUT TEMPLATE - section-divider
+     ║  
+     ║  구조 설명:
+     ║  1. 모든 요소는 position: absolute 를 사용합니다.
+     ║  2. z-index 계층: 배경(0) -> 장식(10) -> 이미지(20) -> 텍스트(30)
+     ║  3. 좌표 단위: pt (720x405 캔버스 기준)
+     ╚══════════════════════════════════════════════════════╝ -->
+
+  <!-- 상단 섹션 정보 -->
+  <p class="absolute top-[48.5pt] left-[48pt] px-[10pt] py-[4pt] bg-white text-[#1a1a1a] rounded-[4pt] text-[8pt] font-semibold z-[30]">SECTION 1</p>
+  <p class="absolute top-[48pt] left-[585.4pt] text-[9pt] text-[#666] z-[30]">©2025 YOUR BRAND</p>
+
+  <!-- 메인 타이틀 -->
+  <h1 class="absolute top-[138pt] left-[48pt] w-[624pt] text-[64pt] font-medium text-white tracking-[-0.02em] leading-[1.1] z-[30]">
+    Introduction
+  </h1>
+  <p class="absolute top-[224.4pt] left-[48pt] w-[400pt] text-[16pt] text-[#888] line-height-[1.6] z-[30]">
+    Brief description of what this section covers and why it matters.
+  </p>
+
+  <!-- 페이지 번호 -->
+  <p class="absolute top-[342pt] left-[661.7pt] text-[10pt] text-[#666] z-[30]">01</p>
+
+</body>
+</html>
+

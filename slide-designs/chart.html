@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['Pretendard', 'ui-sans-serif', 'system-ui'] } } }
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] relative bg-white font-sans text-[#111827] overflow-hidden">
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PAGE LAYOUT TEMPLATE - chart
+     ║  
+     ║  구조 설명:
+     ║  1. 모든 요소는 position: absolute 를 사용합니다.
+     ║  2. z-index 계층: 배경(0) -> 장식(10) -> 이미지(20) -> 텍스트(30)
+     ║  3. 좌표 단위: pt (720x405 캔버스 기준)
+     ╚══════════════════════════════════════════════════════╝ -->
+
+  <!-- 헤더 -->
+  <h2 class="absolute top-[36pt] left-[40pt] text-[28pt] font-bold tracking-[-0.01em] z-[30]">Quarterly Performance</h2>
+  <p class="absolute top-[55.9pt] left-[601.7pt] text-[10pt] text-[#6b7280] uppercase tracking-wider z-[30]">DATA / CHART.JS</p>
+
+  <p class="absolute top-[86pt] left-[40pt] w-[640pt] text-[12pt] text-[#4b5563] z-[30]">
+    Bar, line, pie 차트를 하나의 슬라이드에서 시각화할 수 있습니다.
+  </p>
+
+  <!-- 차트 1 -->
+  <div class="absolute top-[122pt] left-[40pt] w-[204pt] h-[225pt] border border-[#f3f4f6] rounded-[8pt] p-[10pt] z-[20]">
+    <p class="text-[10pt] font-semibold text-[#374151] mb-[8pt]">Bar Chart</p>
+    <div class="w-full h-[182.5pt]">
+      <canvas id="barChart"></canvas>
+    </div>
+  </div>
+
+  <!-- 차트 2 -->
+  <div class="absolute top-[122pt] left-[258pt] w-[204pt] h-[225pt] border border-[#f3f4f6] rounded-[8pt] p-[10pt] z-[20]">
+    <p class="text-[10pt] font-semibold text-[#374151] mb-[8pt]">Line Chart</p>
+    <div class="w-full h-[182.5pt]">
+      <canvas id="lineChart"></canvas>
+    </div>
+  </div>
+
+  <!-- 차트 3 -->
+  <div class="absolute top-[122pt] left-[476pt] w-[204pt] h-[225pt] border border-[#f3f4f6] rounded-[8pt] p-[10pt] z-[20]">
+    <p class="text-[10pt] font-semibold text-[#374151] mb-[8pt]">Pie Chart</p>
+    <div class="w-full h-[182.5pt]">
+      <canvas id="pieChart"></canvas>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <p class="absolute top-[357pt] left-[40pt] w-[640pt] text-[9pt] text-[#9ca3af] z-[30]">Source: Sample Dataset</p>
+
+  <script>
+    // 공통 차트 옵션
+    const commonOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } }
+    };
+
+    // Bar Chart
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+        datasets: [{
+          data: [65, 59, 80, 81],
+          backgroundColor: '#111827',
+          borderRadius: 4
+        }]
+      },
+      options: commonOptions
+    });
+
+    // Line Chart
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+        datasets: [{
+          data: [28, 48, 40, 19],
+          borderColor: '#111827',
+          borderWidth: 2,
+          tension: 0.4,
+          fill: false
+        }]
+      },
+      options: commonOptions
+    });
+
+    // Pie Chart
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['A', 'B', 'C'],
+        datasets: [{
+          data: [300, 50, 100],
+          backgroundColor: ['#111827', '#4b5563', '#9ca3af'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        ...commonOptions,
+        plugins: { legend: { display: true, position: 'bottom' } }
+      }
+    });
+  </script>
+</body>
+</html>
+

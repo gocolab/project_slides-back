@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['Pretendard', 'ui-sans-serif', 'system-ui'] } } }
+    }
+  </script>
+</head>
+<body class="w-[720pt] h-[405pt] relative bg-white font-sans overflow-hidden">
+<!-- ╔══════════════════════════════════════════════════════╗
+     ║  PAGE LAYOUT TEMPLATE - split-layout
+     ║  
+     ║  구조 설명:
+     ║  1. 모든 요소는 position: absolute 를 사용합니다.
+     ║  2. z-index 계층: 배경(0) -> 장식(10) -> 이미지(20) -> 텍스트(30)
+     ║  3. 좌표 단위: pt (720x405 캔버스 기준)
+     ╚══════════════════════════════════════════════════════╝ -->
+
+  <!-- 이미지 영역 -->
+  <div class="absolute top-[0pt] left-[0pt] w-[360pt] h-[405pt] bg-[#e5e5e0] z-[10]">
+    <div data-image-placeholder class="w-full h-full border border-dashed border-[#b8b8b0] bg-[#d9d9d2] flex items-center justify-center">
+      <p class="text-[11pt] font-semibold tracking-[0.06em] text-[#5f5f58] uppercase">Image Placeholder</p>
+    </div>
+    <p class="absolute bottom-[29.5pt] left-[16pt] text-[9pt] text-[#666] z-[30]">©2025 YOUR BRAND</p>
+  </div>
+
+  <!-- 텍스트 영역 -->
+  <i class="fa-solid fa-bullseye absolute top-[107.5pt] left-[396pt] text-[20pt] z-[30]" style="color: #1a1a1a;"></i>
+  <p class="absolute top-[107.5pt] left-[426pt] px-[10pt] py-[4pt] bg-[#1a1a1a] text-white rounded-[4pt] text-[8pt] font-semibold z-[30]">FEATURE</p>
+  
+  <h1 class="absolute top-[143.5pt] left-[396pt] w-[288pt] text-[32pt] font-bold text-[#1a1a1a] tracking-[-0.01em] leading-[1.2] z-[30]">
+    제목을 입력하세요
+  </h1>
+  <p class="absolute top-[197.9pt] left-[396pt] w-[288pt] text-[14pt] text-[#666] leading-[1.7] z-[30]">
+    핵심 내용을 2~3문장 이내로 작성하세요. (최대 80자)
+  </p>
+
+  <p class="absolute top-[274.5pt] left-[396pt] text-[12pt] font-medium text-[#1a1a1a] z-[30]">자세히 알아보기</p>
+  <div class="absolute top-[269.5pt] left-[483.5pt] w-[28pt] h-[28pt] border border-[#1a1a1a] rounded-full flex items-center justify-center z-[20]">
+    <i class="fa-solid fa-arrow-right text-[10pt] text-[#1a1a1a]"></i>
+  </div>
+
+</body>
+</html>
